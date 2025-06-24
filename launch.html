@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>منصة التعدين الرقمية</title>
+    <style>
+        body {
+            margin: 0; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #121212;
+            color: #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 5px;
+        }
+        .balance {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .progress-container {
+            width: 90%;
+            max-width: 600px;
+            background-color: #333;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            height: 30px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff94, #00c6ff);
+            width: 0%;
+            transition: width 1s ease-in-out;
+        }
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+        }
+        button {
+            flex: 1 1 130px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: #00c6ff;
+            color: #121212;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,198,255,0.6);
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #00ff94;
+            box-shadow: 0 6px 12px rgba(0,255,148,0.8);
+        }
+        footer {
+            margin-top: auto;
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 منصة التعدين الرقمية</h1>
+    <div class="balance">رصيدك الحالي: <span id="balance">0</span> SOT</div>
+
+    <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="buttons">
+        <button id="walletBtn">💼 المحفظة</button>
+        <button id="depositBtn">💳 الإيداع</button>
+        <button id="withdrawBtn">📤 السحب</button>
+        <button id="teamBtn">👥 الفريق</button>
+    </div>
+
+    <footer>© 2025 منصة التعدين الرقمية</footer>
+
+<script>
+    // رصيد المستخدم وهمي
+    let balance = 0;
+    const balanceSpan = document.getElementById('balance');
+    const progressBar = document.getElementById('progressBar');
+
+    // تحديث الرصيد بشكل وهمي كل ثانية وزيادة شريط التقدم
+    function mineCoins() {
+        if (balance >= 1000) return;  // حد الرصيد وهمي
+
+        balance += Math.floor(Math.random() * 10) + 5;  // تعدين عشوائي 5-14 SOT
+        if(balance > 1000) balance = 1000;
+
+        balanceSpan.textContent = balance;
+
+        // تحديث شريط التقدم (0-100%)
+        const percent = (balance / 1000) * 100;
+        progressBar.style.width = percent + '%';
+        progressBar.setAttribute('aria-valuenow', percent.toFixed(0));
+    }
+
+    // بدء التعدين كل 1.5 ثانية
+    setInterval(mineCoins, 1500);
+
+    // أزرار مع مثال نوافذ تنبيهية
+    document.getElementById('walletBtn').onclick = () => alert('هذه هي صفحة المحفظة (وهمية)');
+    document.getElementById('depositBtn').onclick = () => alert('هذه صفحة الإيداع (وهمية)');
+    document.getElementById('withdrawBtn').onclick = () => alert('هذه صفحة السحب (وهمية)');
+    document.getElementById('teamBtn').onclick = () => alert('هذه صفحة الفريق (وهمية)');
+
+</script>
+
+</body>
+</html>
