@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>MINEX Mining</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { margin: 0; background: #0e1f2f; font-family: 'Segoe UI', sans-serif; color: #fff; direction: rtl; }
+    header { background: #092c43; padding: 20px; font-size: 26px; text-align: center; font-weight: bold; }
+    .progress-bar { width: 100%; height: 8px; background: #1f3c52; }
+    .progress { height: 8px; background: #00e6a8; width: 100%; animation: loading 6s linear infinite; }
+    @keyframes loading { 0% {width: 0%;} 100% {width: 100%;} }
+
+    .section { display: none; padding: 20px; }
+    .active { display: block; }
+
+    .circle { width: 120px; height: 120px; background: #6933ff; margin: 20px auto; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 0 15px #6933ff88; font-weight: bold; }
+
+    .btn {
+      display: block; width: 90%; margin: 10px auto; padding: 12px; font-size: 16px;
+      background: #00e6a8; color: #000; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;
+    }
+
+    .package { background: #1f3c52; padding: 15px; margin: 15px 0; border-radius: 12px; }
+    .package h3 { color: #00e6a8; margin: 0; }
+
+    .bottom-nav {
+      position: fixed; bottom: 0; width: 100%; display: flex; justify-content: space-around;
+      background: #092c43; padding: 10px 0; z-index: 99;
+    }
+
+    .bottom-nav button {
+      background: none; border: none; color: #fff; font-size: 15px; font-weight: bold; cursor: pointer;
+    }
+
+    .card { background: #1f3c52; padding: 15px; margin-top: 15px; border-radius: 10px; text-align: center; }
+    .card p { margin: 10px 0; font-size: 16px; }
+    .copy-btn { background: #00e6a8; border: none; padding: 10px 15px; font-weight: bold; border-radius: 8px; cursor: pointer; }
+
+    .notice { background: #ffcc00; color: #000; padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+
+<header>MINEX</header>
+<div class="progress-bar"><div class="progress"></div></div>
+
+<!-- التعدين -->
+<div id="mining" class="section active">
+  <div class="circle">⚡ Miner</div>
+  <p style="text-align:center;font-size:22px;">0.00 MINEX</p>
+  <button class="btn" onclick="alert('⛏️ الرجاء شراء باقة لتفعيل التعدين')">المطالبة بالأرباح</button>
+  <button class="btn" onclick="showWithdraw()">🚀 سحب</button>
+</div>
+
+<!-- الباقات -->
+<div id="packages" class="section">
+  <div class="package"><h3>10 USDT</h3><p>1 MINEX / يوم</p><p>لمدة 30 يوم</p><button class="btn" onclick="buy(10)">شراء</button></div>
+  <div class="package"><h3>20 USDT</h3><p>2 MINEX / يوم</p><p>لمدة 30 يوم</p><button class="btn" onclick="buy(20)">شراء</button></div>
+  <div class="package"><h3>50 USDT</h3><p>5 MINEX / يوم</p><p>لمدة 30 يوم</p><button class="btn" onclick="buy(50)">شراء</button></div>
+  <div class="package"><h3>100 USDT</h3><p>10 MINEX / يوم</p><p>لمدة 30 يوم</p><button class="btn" onclick="buy(100)">شراء</button></div>
+  <div class="package"><h3>500 USDT</h3><p>50 MINEX / يوم</p><p>لمدة 30 يوم</p><button class="btn" onclick="buy(500)">شراء</button></div>
+  <div class="package"><h3>1000 USDT</h3><p>100 MINEX / يوم</p><p>لمدة 30 يوم</p><button class="btn" onclick="buy(1000)">شراء</button></div>
+</div>
+
+<!-- المحفظة -->
+<div id="wallet" class="section">
+  <div class="notice">🟡 الرجاء الإيداع باستخدام أحد العناوين التالية</div>
+  <div class="card">
+    <p>TRC20:</p>
+    <p id="trc">TJj1Mb77hoSC5PbPiT4pc9oqMzvNS1V5Q3</p>
+    <button class="copy-btn" onclick="copy('trc')">📋 نسخ</button>
+  </div>
+  <div class="card">
+    <p>BEP20:</p>
+    <p id="bep">0xb2d1e9ec71199a32551b8d5dd1826e00c1e2d9a4</p>
+    <button class="copy-btn" onclick="copy('bep')">📋 نسخ</button>
+  </div>
+</div>
+
+<!-- التنقل -->
+<div class="bottom-nav">
+  <button onclick="showSection('mining')">⚡ التعدين</button>
+  <button onclick="showSection('packages')">📦 الباقات</button>
+  <button onclick="showSection('wallet')">💳 المحفظة</button>
+</div>
+
+<script>
+  let balance = 0;
+
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function buy(amount) {
+    if (balance < amount) {
+      alert("❌ لا يوجد رصيد كافٍ!
+💳 سيتم تحويلك لصفحة الإيداع...");
+      showSection('wallet');
+    } else {
+      alert("✅ تم تفعيل الباقة بنجاح!");
+    }
+  }
+
+  function copy(id) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text);
+    alert("✅ تم نسخ العنوان بنجاح!");
+  }
+
+  function showWithdraw() {
+    alert("🚫 السحب غير متاح قبل مرور 30 يومًا من التفعيل.");
+  }
+
+  window.onload = () => showSection('mining');
+</script>
+
+</body>
+</html>
