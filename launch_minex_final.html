@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>MINEX Mining</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0e1f2f;
+      color: #fff;
+      direction: rtl;
+    }
+    header {
+      background-color: #092c43;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      position: relative;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: #1f3c52;
+      position: relative;
+    }
+    .progress {
+      height: 10px;
+      background: #00e6a8;
+      width: 0%;
+      animation: progressAnim 10s linear infinite;
+    }
+    @keyframes progressAnim {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+    .main, .packages, .wallet {
+      display: none;
+      padding: 20px;
+    }
+    .active { display: block; }
+
+    .circle {
+      width: 100px;
+      height: 100px;
+      background: #6933ff;
+      margin: 20px auto;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 0 15px #6933ff88;
+    }
+    .balance {
+      font-size: 26px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #00e6a8;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      margin: 10px auto;
+      display: block;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .package {
+      background: #1f3c52;
+      margin: 15px 0;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .package h3 { margin: 5px 0; color: #00e6a8; }
+    .package p { margin: 3px 0; }
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #092c43;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+    }
+    .bottom-nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.main, .packages, .wallet').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function showWithdraw() {
+      alert("🚫 السحب غير متاح حالياً.
+🕐 الرجاء الانتظار لمدة 30 يومًا.");
+    }
+
+    function showDeposit() {
+      alert("🔹 TRC20: TJj1Mb77hoSC5PbPiT4pc9oqMzvNS1V5Q3\n🔸 BEP20: 0xb2d1e9ec71199a32551b8d5dd1826e00c1e2d9a4");
+    }
+
+    function convertToUSDT() {
+      const amount = prompt("أدخل كمية MINEX لتحويلها إلى USDT:");
+      if (amount) {
+        const usdt = (parseFloat(amount) / 1000).toFixed(2);
+        alert("💱 " + amount + " MINEX = " + usdt + " USDT");
+      }
+    }
+  </script>
+</head>
+<body>
+
+<header>
+  MINEX
+  <div class="progress-bar"><div class="progress"></div></div>
+</header>
+
+<div id="main" class="main active">
+  <div class="circle">⚡ Miner</div>
+  <div class="balance">0.00 MINEX</div>
+  <button class="btn" onclick="alert('⛏️ الرجاء شراء باقة لتفعيل التعدين.')">المطالبة بالأرباح</button>
+  <button class="btn" onclick="showWithdraw()">🚀 سحب</button>
+</div>
+
+<div id="packages" class="packages">
+  <div class="package"><h3>باقة 15 USDT</h3><p>ربح يومي: 30 MINEX</p><p>المدة: 30 يوم</p><button class="btn">شراء</button></div>
+  <div class="package"><h3>باقة 90 USDT</h3><p>ربح يومي: 100 MINEX</p><p>المدة: 30 يوم</p><button class="btn">شراء</button></div>
+  <div class="package"><h3>باقة 299 USDT</h3><p>ربح يومي: 350 MINEX</p><p>المدة: 30 يوم</p><button class="btn">شراء</button></div>
+  <div class="package"><h3>باقة 999 USDT</h3><p>ربح يومي: 1300 MINEX</p><p>المدة: 30 يوم</p><button class="btn">شراء</button></div>
+  <div class="package"><h3>باقة 1999 USDT</h3><p>ربح يومي: 2800 MINEX</p><p>المدة: 30 يوم</p><button class="btn">شراء</button></div>
+  <div class="package"><h3>باقة 2999 USDT</h3><p>ربح يومي: 4500 MINEX</p><p>المدة: 30 يوم</p><button class="btn">شراء</button></div>
+</div>
+
+<div id="wallet" class="wallet">
+  <button class="btn" onclick="showDeposit()">💰 الإيداع</button>
+  <button class="btn" onclick="showWithdraw()">🚫 السحب</button>
+  <button class="btn" onclick="convertToUSDT()">💱 تحويل MINEX إلى USDT</button>
+</div>
+
+<div class="bottom-nav">
+  <button onclick="showSection('main')">⚡ التعدين</button>
+  <button onclick="showSection('packages')">📦 الباقات</button>
+  <button onclick="showSection('wallet')">💳 المحفظة</button>
+</div>
+
+</body>
+</html>
